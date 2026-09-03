@@ -40,10 +40,10 @@ export default function App() {
   const [isBatchExportModalOpen, setIsBatchExportModalOpen] = useState<boolean>(false);
 
   // Load initial demo photos on startup so the app is instantly rich & interactive
-  const loadDemoPhotos = useCallback(async () => {
+  const loadDemoPhotos = useCallback(() => {
     setIsLoading(true);
     try {
-      const demo = await createSamplePhotos();
+      const demo = createSamplePhotos();
       setPhotos(demo);
     } catch (err) {
       console.error('Failed to load demo photos:', err);

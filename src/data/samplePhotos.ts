@@ -1,5 +1,4 @@
 import { PhotoItem } from '../types';
-import { calculateDHashFromCanvas } from '../utils/imageAnalyzer';
 
 // Helper to generate a photo-like SVG data URL with canvas rendering
 function createPhotoDataUrl(
@@ -87,7 +86,7 @@ function createPhotoDataUrl(
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 }
 
-export async function createSamplePhotos(): Promise<PhotoItem[]> {
+export function createSamplePhotos(): PhotoItem[] {
   const baseTime = Date.now() - 1000 * 60 * 60 * 24 * 7; // 7 days ago
 
   const rawSamples = [
@@ -106,6 +105,8 @@ export async function createSamplePhotos(): Promise<PhotoItem[]> {
       megapixels: 24.0,
       timestamp: baseTime,
       sharpnessScore: 94,
+      dHash: '1100110011110000110011001111000010101010111100001100110011110000',
+      avgBrightness: 142,
     },
     {
       id: 'photo-burst-2',
@@ -122,6 +123,8 @@ export async function createSamplePhotos(): Promise<PhotoItem[]> {
       megapixels: 24.0,
       timestamp: baseTime + 1200, // 1.2 seconds later
       sharpnessScore: 78,
+      dHash: '1100110011110000110011001111000010101010111100001100110011110001',
+      avgBrightness: 140,
     },
     {
       id: 'photo-burst-3',
@@ -138,6 +141,8 @@ export async function createSamplePhotos(): Promise<PhotoItem[]> {
       megapixels: 24.0,
       timestamp: baseTime + 2500, // 2.5s later
       sharpnessScore: 68,
+      dHash: '1100110011110000110011001111000010101010111100001100110011110011',
+      avgBrightness: 138,
     },
     {
       id: 'photo-exact-dup-1',
@@ -154,6 +159,8 @@ export async function createSamplePhotos(): Promise<PhotoItem[]> {
       megapixels: 32.3,
       timestamp: baseTime - 1000 * 60 * 60 * 36,
       sharpnessScore: 91,
+      dHash: '1010101000110011111100001100110010101010001100111111000011001100',
+      avgBrightness: 125,
     },
     {
       id: 'photo-exact-dup-2',
@@ -170,6 +177,8 @@ export async function createSamplePhotos(): Promise<PhotoItem[]> {
       megapixels: 32.3,
       timestamp: baseTime - 1000 * 60 * 60 * 36,
       sharpnessScore: 91,
+      dHash: '1010101000110011111100001100110010101010001100111111000011001100',
+      avgBrightness: 125,
     },
     {
       id: 'photo-portrait-1',
@@ -186,6 +195,8 @@ export async function createSamplePhotos(): Promise<PhotoItem[]> {
       megapixels: 17.9,
       timestamp: baseTime - 1000 * 60 * 60 * 72,
       sharpnessScore: 89,
+      dHash: '0011001100110011110011001100110000110011001100111100110011001100',
+      avgBrightness: 155,
     },
     {
       id: 'photo-portrait-2',
@@ -202,6 +213,8 @@ export async function createSamplePhotos(): Promise<PhotoItem[]> {
       megapixels: 17.9,
       timestamp: baseTime - 1000 * 60 * 60 * 72 + 4000,
       sharpnessScore: 82,
+      dHash: '0011001100110011110011001100110000110011001100111100110011001110',
+      avgBrightness: 153,
     },
     {
       id: 'photo-doc-1',
@@ -218,6 +231,8 @@ export async function createSamplePhotos(): Promise<PhotoItem[]> {
       megapixels: 12.2,
       timestamp: baseTime - 1000 * 60 * 60 * 120,
       sharpnessScore: 85,
+      dHash: '0000111100001111000011110000111100001111000011110000111100001111',
+      avgBrightness: 210,
     },
     {
       id: 'photo-doc-2',
@@ -234,6 +249,8 @@ export async function createSamplePhotos(): Promise<PhotoItem[]> {
       megapixels: 12.2,
       timestamp: baseTime - 1000 * 60 * 60 * 120 + 3000,
       sharpnessScore: 83,
+      dHash: '0000111100001111000011110000111100001111000011110000111100001110',
+      avgBrightness: 208,
     },
     {
       id: 'photo-heavy-panorama',
@@ -250,12 +267,12 @@ export async function createSamplePhotos(): Promise<PhotoItem[]> {
       megapixels: 48.0,
       timestamp: baseTime - 1000 * 60 * 60 * 240,
       sharpnessScore: 92,
+      dHash: '1111111100000000111111110000000011111111000000001111111100000000',
+      avgBrightness: 95,
     },
   ];
 
-  const results: PhotoItem[] = [];
-
-  for (const raw of rawSamples) {
+  return rawSamples.map((raw) => {
     const dataUrl = createPhotoDataUrl(
       raw.title,
       raw.subtitle,
@@ -267,16 +284,7 @@ export async function createSamplePhotos(): Promise<PhotoItem[]> {
       600
     );
 
-    // Compute synthetic dHash by loading into an image or calculating
-    const img = new Image();
-    img.src = dataUrl;
-    await new Promise<void>((res) => {
-      img.onload = () => res();
-    });
-
-    const { dHash, avgBrightness } = calculateDHashFromCanvas(img);
-
-    results.push({
+    return {
       id: raw.id,
       name: raw.name,
       fileSize: raw.fileSize,
@@ -286,13 +294,11 @@ export async function createSamplePhotos(): Promise<PhotoItem[]> {
       mimeType: 'image/jpeg',
       dataUrl: dataUrl,
       thumbnailUrl: dataUrl,
-      dHash,
-      averageBrightness: avgBrightness,
+      dHash: raw.dHash,
+      averageBrightness: raw.avgBrightness,
       timestamp: raw.timestamp,
       sharpnessScore: raw.sharpnessScore,
-      category: 'optimized',
-    });
-  }
-
-  return results;
+      category: raw.megapixels > 16 || raw.fileSize > 4 * 1024 * 1024 ? 'oversized' : 'optimized',
+    };
+  });
 }
