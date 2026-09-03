@@ -7,13 +7,16 @@
 ## Two Ways to Run
 
 ### 1. Zero-Bandwidth Cloud Runner (Google Colab)
+
 If you do not want to download photos to your local computer:
+
 1. Go to [Google Takeout](https://takeout.google.com), select **Google Photos**, and choose **"Add to Drive"** as the destination. Google transfers the archive directly inside Google's cloud (0 MB local download).
 2. Open [`google_photos_optimizer.ipynb`](google_photos_optimizer.ipynb) in [Google Colab](https://colab.research.google.com/).
 3. Mount Google Drive and run the notebook. It computes 64-bit difference hashes (`dHash`) and Laplacian focus sharpness to group burst shots and redundant duplicates in Google's cloud.
 4. Generates an interactive HTML cleanup report with 1-click links to Google Photos dates/searches to delete burst duplicates directly.
 
 ### 2. Client-Side Web Application
+
 Drag-and-drop photos, folders, or Takeout archives locally into this interactive React dashboard to inspect clusters with visual split-sliders and export WebP compressed packages.
 
 ## Features
@@ -21,8 +24,6 @@ Drag-and-drop photos, folders, or Takeout archives locally into this interactive
 This project was created with the following prompt to Gemini AI:
 
 > _"I'd like to have an app which goes through my Google photos and suggests saving some of them in lower quality to save my storage space. Could it be done?"_
-
-## Features
 
 - **Perceptual duplicate detection** — uses dHash (difference hashing) to find near-duplicates and exact copies, not just byte-identical files
 - **Burst shot detection** — groups photos taken within 90 seconds that are perceptually similar
@@ -36,16 +37,16 @@ This project was created with the following prompt to Gemini AI:
 
 ## Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| Framework | React 19 |
-| Language | TypeScript |
-| Build Tool | Vite |
-| CSS | Tailwind CSS v4 |
-| Icons | Lucide React |
-| Animations | Motion (Framer Motion successor) |
-| ZIP Creation | JSZip |
-| Package Manager | Bun |
+| Layer           | Technology                       |
+| --------------- | -------------------------------- |
+| Framework       | React 19                         |
+| Language        | TypeScript                       |
+| Build Tool.     | Vite                             |
+| CSS             | Tailwind CSS v4                  |
+| Icons           | Lucide React                     |
+| Animations      | Motion (Framer Motion successor) |
+| ZIP Creation    | JSZip                            |
+| Package Manager | Bun                              |
 
 ## Getting Started
 
@@ -60,24 +61,24 @@ bun install
 bun run dev
 ```
 
-The app starts at **http://localhost:3000**.
+The app starts at [localhost, port 3000](http://localhost:3000).
 
 ### Other Commands
 
-| Command | Description |
-|---------|-------------|
-| `bun run build` | Production build |
-| `bun run preview` | Preview production build |
-| `bun run lint` | Type-check with `tsc --noEmit` |
+| Command           | Description                    |
+| ----------------- | ------------------------------ |
+| `bun run build`   | Production build               |
+| `bun run preview` | Preview production build       |
+| `bun run lint`    | Type-check with `tsc --noEmit` |
 
 ## Configuration
 
 No configuration is required for local use. The `.env.example` defines optional variables used only within Google AI Studio:
 
-| Variable | Purpose |
-|----------|---------|
+| Variable         | Purpose                                   |
+|------------------|-------------------------------------------|
 | `GEMINI_API_KEY` | Gemini AI API key (injected by AI Studio) |
-| `APP_URL` | Hosted URL (injected by AI Studio) |
+| `APP_URL`        | Hosted URL (injected by AI Studio)        |
 
 ## How It Works
 
@@ -92,7 +93,7 @@ All analysis runs entirely in the browser — nothing is uploaded to any server.
 
 ## Project Structure
 
-```
+```text
 ├── index.html                  # SPA entry point
 ├── package.json                # Dependencies & scripts
 ├── vite.config.ts              # Vite + Tailwind + React
