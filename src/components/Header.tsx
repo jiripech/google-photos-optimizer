@@ -70,6 +70,19 @@ export const Header: React.FC<HeaderProps> = ({
             </div>
           )}
 
+          <a
+            id="btn-cloud-colab"
+            href="https://colab.research.google.com/github/jiripech/google-photos-optimizer/blob/main/google_photos_optimizer.ipynb"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-amber-900 bg-amber-50 border border-amber-200 rounded-lg hover:bg-amber-100 transition-colors"
+            title="Run zero-download duplicate cleaner in Google Cloud using Colab"
+          >
+            <HardDrive className="w-3.5 h-3.5 text-amber-700" />
+            <span className="hidden sm:inline">Cloud Colab</span>
+            <span className="text-[10px] text-amber-600 font-mono">0 MB DL</span>
+          </a>
+
           <button
             id="btn-google-guide"
             onClick={onOpenGuide}

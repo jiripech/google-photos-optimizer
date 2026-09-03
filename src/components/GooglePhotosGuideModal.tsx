@@ -44,6 +44,32 @@ export const GooglePhotosGuideModal: React.FC<GooglePhotosGuideModalProps> = ({ 
 
         {/* Content */}
         <div className="p-6 overflow-y-auto space-y-5 text-xs text-slate-600 leading-relaxed">
+          {/* Cloud vs Local Option */}
+          <div className="p-4 rounded-xl bg-blue-50/80 border border-blue-200/80">
+            <div className="flex items-center justify-between mb-1.5">
+              <div className="flex items-center gap-2 text-blue-950 font-bold text-sm">
+                <HardDrive className="w-4 h-4 text-blue-600" />
+                <span>Zero-Bandwidth Cloud Option: Google Colab</span>
+              </div>
+              <a
+                href="https://colab.research.google.com/github/jiripech/google-photos-optimizer/blob/main/google_photos_optimizer.ipynb"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1 text-[11px] font-semibold text-blue-700 hover:text-blue-800 bg-white px-2 py-0.5 rounded-md border border-blue-200 hover:border-blue-300"
+              >
+                Open in Colab ↗
+              </a>
+            </div>
+            <p className="text-blue-900/90 text-xs mb-2">
+              If you don't want to download photos to your computer:
+            </p>
+            <ol className="list-decimal list-inside space-y-1 text-blue-900/80 text-[11px]">
+              <li>In <strong>Google Takeout</strong>, select Google Photos and choose destination: <strong>"Add to Drive"</strong> (Google transfers it cloud-to-cloud; 0 MB downloaded to your PC).</li>
+              <li>Run the included <code className="bg-white/80 px-1 py-0.5 rounded text-blue-950 font-mono">google_photos_optimizer.ipynb</code> in Google Colab.</li>
+              <li>It generates an interactive HTML cleanup report with 1-click links to trash redundant burst shots directly in Google Photos.</li>
+            </ol>
+          </div>
+
           {/* Why Google's Built-in Tool Isn't Enough */}
           <div className="p-4 rounded-xl bg-amber-50/80 border border-amber-200/80">
             <div className="flex items-center gap-2 text-amber-900 font-bold text-sm mb-1.5">

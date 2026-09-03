@@ -1,8 +1,22 @@
 # Google Photos Optimizer
 
-> A client-side web app that detects near-duplicates, burst shots, and oversized photos in your Google Photos library, recommends the best shots, and compresses them to reclaim storage space.
+> A client-side web app and cloud runner that detects near-duplicates, burst shots, and oversized photos in your Google Photos library, recommends the best shots, and helps reclaim cloud storage space.
 
-## Origin
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jiripech/google-photos-optimizer/blob/main/google_photos_optimizer.ipynb)
+
+## Two Ways to Run
+
+### 1. Zero-Bandwidth Cloud Runner (Google Colab)
+If you do not want to download photos to your local computer:
+1. Go to [Google Takeout](https://takeout.google.com), select **Google Photos**, and choose **"Add to Drive"** as the destination. Google transfers the archive directly inside Google's cloud (0 MB local download).
+2. Open [`google_photos_optimizer.ipynb`](google_photos_optimizer.ipynb) in [Google Colab](https://colab.research.google.com/).
+3. Mount Google Drive and run the notebook. It computes 64-bit difference hashes (`dHash`) and Laplacian focus sharpness to group burst shots and redundant duplicates in Google's cloud.
+4. Generates an interactive HTML cleanup report with 1-click links to Google Photos dates/searches to delete burst duplicates directly.
+
+### 2. Client-Side Web Application
+Drag-and-drop photos, folders, or Takeout archives locally into this interactive React dashboard to inspect clusters with visual split-sliders and export WebP compressed packages.
+
+## Features
 
 This project was created with the following prompt to Gemini AI:
 

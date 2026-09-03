@@ -2,5 +2,7 @@
   "name": "Photo Storage & Duplicate Optimizer",
   "description": "Find near-duplicates, burst shots, and high-resolution photos that can be compressed to save Google storage space.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }
